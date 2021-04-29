@@ -26,3 +26,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 		});
 	}
 };
+
+export const getAuthUser = (req: Request, res: Response) => {
+	return res.json({ success: true, user: req.user });
+};

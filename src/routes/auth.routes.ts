@@ -2,11 +2,11 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import { checkErrors } from '../validations/check-errors';
 import { isAuthenticated } from '../middlewares/auth';
-import { login } from '../controllers/auth.controller';
+import { getAuthUser, login } from '../controllers/auth.controller';
 
 const router = Router();
 
-router.get('/', isAuthenticated);
+router.get('/', isAuthenticated, getAuthUser);
 router.post(
 	'/',
 	[

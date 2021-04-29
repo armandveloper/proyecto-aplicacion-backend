@@ -21,7 +21,7 @@ export const createUser = async (
 		await user.save();
 		return res.json({
 			success: true,
-			user,
+			msg: 'La cuenta se ha creado con éxito',
 		});
 	} catch (err) {
 		console.log(err);
