@@ -2,14 +2,20 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import { isAuthenticated } from '../middlewares/auth';
 import { checkErrors } from '../validations/check-errors';
-import { createLink, getLink } from '../controllers/links.controller';
-import { deleteFile } from '../controllers/files.controller';
+import {
+	createLink,
+	getLink,
+	getLinks,
+	hasPassword,
+	verifyPassword,
+} from '../controllers/links.controller';
 
 const router = Router();
 
 router.post(
 	'/',
 	[
+		body('filename', 'Debe subir un archivo').not().isEmpty(),
 		body('originalName', 'Debe subir un archivo').not().isEmpty(),
 		checkErrors,
 		isAuthenticated,
@@ -17,6 +23,10 @@ router.post(
 	createLink
 );
 
-router.get('/:url', getLink, deleteFile);
+router.get('/', getLinks);
+
+router.get('/:url', hasPassword, getLink);
+
+router.post('/:url', verifyPassword, getLink);
 
 export default router;
