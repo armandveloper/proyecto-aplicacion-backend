@@ -36,13 +36,15 @@ export const uploadFile = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const deleteFile = (req: Request, res: Response) => {
+	const { id } = req.params;
+	console.log('existe id:', id);
 	const filePath = path.join(__dirname, '..', 'uploads', req.fileName);
 
 	fs.stat(filePath, (err: NodeJS.ErrnoException | null, stats: fs.Stats) => {
 		if (err) {
 			console.log('error: ', err);
+			return;
 		}
-
 		if (!stats) {
 			console.log('El archivo ya no existe');
 			return;
@@ -50,6 +52,7 @@ export const deleteFile = (req: Request, res: Response) => {
 		fs.unlink(filePath, (err: NodeJS.ErrnoException | null) => {
 			if (err) {
 				console.log('Error al eliminar el archivo:', err);
+				return;
 			}
 			console.log('Archivo eliminado');
 		});
@@ -89,13 +92,14 @@ export const existsFile = (req: Request, res: Response) => {
 	const filePath = `${path.join(__dirname, '..', 'uploads')}/${file}`;
 	fs.stat(filePath, (err: NodeJS.ErrnoException | null, stats: fs.Stats) => {
 		if (err) {
-			console.log(err);
+			console.log('error de verificación: ', err);
 			return res.status(500).json({
 				success: false,
 				msg: 'El archivo ya no está disponible',
 			});
 		}
 		if (!stats) {
+			console.log('El archivo ya no está disponible');
 			return res.status(404).json({
 				success: false,
 				msg: 'El archivo ya no está disponible',

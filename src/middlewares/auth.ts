@@ -9,7 +9,6 @@ export const isAuthenticated = (
 	const authHeader = req.get('Authorization');
 
 	if (!authHeader) {
-		// return res.json({ success: false, msg: 'No se envió ningún token' });
 		return next();
 	}
 
@@ -22,7 +21,6 @@ export const isAuthenticated = (
 		req.user = user as { id: string; name: string; email: string };
 	} catch (err) {
 		console.log(err);
-		// return res.json({ success: false, msg: 'El token no es válido' });
 	}
 	return next();
 };
