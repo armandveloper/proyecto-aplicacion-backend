@@ -16,8 +16,8 @@ export const uploadFile = (req: Request, res: Response, next: NextFunction) => {
 		},
 	});
 
-	// Si está autenticado 100 mb sino 1mb
-	const fileSize = req.user ? 1024 * 1024 * 100 : 1024 * 1024;
+	// Límite 50MB
+	const fileSize = 1024 * 1024 * 50;
 
 	const multerConfig = {
 		limits: { fileSize },
@@ -68,17 +68,17 @@ export const downloadFile = async (
 	const filePath = `${path.join(__dirname, '..', 'uploads')}/${file}`;
 	res.download(filePath);
 	try {
-		const link = await Link.findOne({ name: file });
+		const link = await Link.findOne({ nombre: file });
 		if (!link) {
 			return next();
 		}
-		if (link.downloads === 1) {
+		if (link.descargas === 1) {
 			req.fileName = file;
-			req.originalname = link.originalName;
+			req.originalname = link.nombreOriginal;
 			await Link.findByIdAndDelete(link.id);
 			return next();
 		} else {
-			link.downloads = link.downloads - 1;
+			link.descargas = link.descargas - 1;
 			await link.save();
 			return next();
 		}

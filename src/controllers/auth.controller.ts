@@ -21,12 +21,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 	} catch (err) {
 		return res.json({
 			success: false,
-			msg:
-				'Ocurrió un error inesperado en el servidor. Intente más tarde',
+			msg: 'Ocurrió un error inesperado en el servidor. Intente más tarde',
 		});
 	}
-};
-
-export const getAuthUser = (req: Request, res: Response) => {
-	return res.json({ success: true, user: req.user });
 };
