@@ -54,7 +54,7 @@ export const getLink = async (
 		res.json({
 			success: true,
 			filename: link.nombre,
-      originalName: link.nombreOriginal,
+			originalName: link.nombreOriginal,
 			password: false,
 			url: link.url,
 		});
