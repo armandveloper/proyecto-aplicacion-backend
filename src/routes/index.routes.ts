@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { isAuthenticated } from '../middlewares/auth';
 import userRoutes from './users.routes';
 import authRoutes from './auth.routes';
 import linksRoutes from './links.routes';
@@ -10,6 +9,6 @@ const router = Router();
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
 router.use('/links', linksRoutes);
-router.use('/files', isAuthenticated, filesRoutes);
+router.use('/files', filesRoutes);
 
 export default router;

@@ -25,7 +25,7 @@ const linkSchema = new Schema<ILink>({
 		type: Number,
 		default: 1,
 	},
-	createdEl: {
+	creadoEl: {
 		type: Date,
 		default: Date.now(),
 	},
