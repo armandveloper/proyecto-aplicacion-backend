@@ -11,7 +11,11 @@ const app = express();
 
 connectDB();
 
-app.use(cors());
+app.use(
+	cors({
+		origin: process.env.CORS_ORIGIN || '',
+	})
+);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use('/api', indexRoutes);
